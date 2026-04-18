@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ミニSST ランダム場面カード</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN W4", "Yu Gothic", "メイリオ", sans-serif;
+    background: linear-gradient(135deg, #fff8e7 0%, #ffe4f0 50%, #e0f4ff 100%);
+    color: #333;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  header {
+    text-align: center;
+    margin: 20px 0 30px;
+  }
+
+  h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    color: #ff7043;
+    text-shadow: 2px 2px 0 #fff, 3px 3px 0 #ffccbc;
+    letter-spacing: 2px;
+  }
+
+  .subtitle {
+    margin-top: 10px;
+    font-size: clamp(14px, 2.5vw, 18px);
+    color: #6d4c41;
+  }
+
+  main {
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .card {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+    border: 4px solid #ffe0b2;
+    text-align: center;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+    transition: transform 0.25s ease;
+  }
+
+  .card.pop {
+    animation: pop 0.4s ease;
+  }
+
+  @keyframes pop {
+    0%   { transform: scale(0.92); opacity: 0.4; }
+    60%  { transform: scale(1.03); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+
+  .category {
+    display: inline-block;
+    align-self: center;
+    background: #ffecb3;
+    color: #e65100;
+    font-size: clamp(14px, 2.5vw, 18px);
+    font-weight: bold;
+    padding: 6px 16px;
+    border-radius: 999px;
+    border: 2px dashed #ffb74d;
+  }
+
+  .scene-title {
+    font-size: clamp(22px, 4.5vw, 32px);
+    color: #1565c0;
+    font-weight: bold;
+    line-height: 1.4;
+  }
+
+  .scene-description {
+    font-size: clamp(18px, 3.5vw, 24px);
+    color: #333;
+    line-height: 1.7;
+  }
+
+  .question-box {
+    background: #e8f5e9;
+    border-left: 6px solid #66bb6a;
+    border-radius: 12px;
+    padding: 16px 20px;
+    text-align: left;
+  }
+
+  .question-label {
+    font-size: clamp(14px, 2.5vw, 16px);
+    color: #2e7d32;
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+
+  .question-text {
+    font-size: clamp(18px, 3.5vw, 22px);
+    color: #1b5e20;
+    line-height: 1.6;
+  }
+
+  .placeholder {
+    color: #999;
+    font-size: clamp(18px, 3.5vw, 22px);
+    line-height: 1.8;
+  }
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  button {
+    font-family: inherit;
+    font-size: clamp(18px, 3.5vw, 22px);
+    font-weight: bold;
+    padding: 18px 32px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    min-width: 180px;
+  }
+
+  button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-draw {
+    background: linear-gradient(135deg, #ff8a65, #ff7043);
+  }
+
+  .btn-redraw {
+    background: linear-gradient(135deg, #64b5f6, #42a5f5);
+  }
+
+  footer {
+    margin-top: 36px;
+    font-size: 13px;
+    color: #888;
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
+    .buttons {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    button {
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>ミニSST ランダム場面カード</h1>
+    <p class="subtitle">自分ならどうするかな？ みんなで考えてみよう</p>
+  </header>
+
+  <main>
+    <div id="card" class="card" aria-live="polite">
+      <p class="placeholder">
+        下の「場面をひく」ボタンをおすと<br>
+        きょうの場面カードがでてくるよ！
+      </p>
+    </div>
+
+    <div class="buttons">
+      <button id="drawBtn" class="btn-draw" type="button">場面をひく</button>
+      <button id="redrawBtn" class="btn-redraw" type="button" disabled style="opacity:0.5; cursor:not-allowed;">もう一度ひく</button>
+    </div>
+  </main>
+
+  <footer>
+    © ミニSST ランダム場面カード / 小学校向け試作版
+  </footer>
+
+<script>
+  const scenes = [
+    {
+      category: "友達関係",
+      title: "友達が1人でいる",
+      description: "休み時間、クラスの子が1人でぽつんとすわっているよ。さみしそうな顔をしている気がする。",
+      question: "あなたなら、どんな言葉をかける？"
+    },
+    {
+      category: "休み時間",
+      title: "グループで1人あまった",
+      description: "2人組をつくる時間。気がついたら、1人だけあまってしまった子がいる。",
+      question: "あなたならどう声をかけて、どう動く？"
+    },
+    {
+      category: "友達関係",
+      title: "貸したものが返ってこない",
+      description: "この前かしたえんぴつが、まだ返ってこない。相手はわすれているみたい。",
+      question: "相手がいやな気もちにならないように、どう伝える？"
+    },
+    {
+      category: "休み時間",
+      title: "話の輪に入りたい",
+      description: "友達が楽しそうに話している。自分もまぜてほしいけれど、なんて言えばいいかなやむ。",
+      question: "どんな言葉で声をかけたら、自然に入れるかな？"
+    },
+    {
+      category: "友達関係",
+      title: "けんかのあと、気まずい",
+      description: "昨日、友達と小さなけんかをした。今日会っても、なんだか目を合わせづらい。",
+      question: "はじめの一言、あなたなら何と言う？"
+    },
+    {
+      category: "授業",
+      title: "困っている友達がいる",
+      description: "となりの席の子が、問題のとき方がわからなくて、こまった顔をしている。",
+      question: "先生のじゃまをしないで、どんなふうに助ける？"
+    },
+    {
+      category: "授業",
+      title: "自分だけ答えがちがう",
+      description: "答え合わせで、自分だけちがう答えだった。はずかしい気もちになる。",
+      question: "こんなとき、自分にどんな言葉をかけてあげる？"
+    },
+    {
+      category: "休み時間",
+      title: "遊びのルールでもめた",
+      description: "ドッジボールで、アウトかセーフかでもめている。みんな自分の考えをゆずらない。",
+      question: "けんかにならずに、どうやって話し合う？"
+    },
+    {
+      category: "友達関係",
+      title: "秘密をうちあけられた",
+      description: "友達から「ないしょだよ」と、ちょっと重い話をうちあけられた。",
+      question: "どんな言葉を返す？ 先生に言った方がいいのはどんなとき？"
+    },
+    {
+      category: "給食",
+      title: "苦手な食べものが出た",
+      description: "給食に、ちょっと苦手な食べものがのっている。まわりは「ぜんぶ食べようよ」と言う。",
+      question: "自分の気もちも大事にしながら、どう伝える？"
+    },
+    {
+      category: "そうじ",
+      title: "さぼっている子がいる",
+      description: "そうじの時間、おしゃべりばかりしている子がいる。自分ばかり動いている気がする。",
+      question: "いじわるにならない言い方で、どう声をかける？"
+    },
+    {
+      category: "友達関係",
+      title: "悪口を言われている子",
+      description: "クラスの子が、べつの子の悪口を言っているのが聞こえた。",
+      question: "あなたならどう感じる？ どんな行動ができそう？"
+    },
+    {
+      category: "授業",
+      title: "発表するのがこわい",
+      description: "明日、みんなの前で発表しないといけない。考えるとドキドキして、ねむれない。",
+      question: "自分の気もちを落ちつかせるには、どんな方法がある？"
+    },
+    {
+      category: "休み時間",
+      title: "転んだ子がいる",
+      description: "ろうかで走っていた子が転んだ。ひざを見て、泣きそうになっている。",
+      question: "まず、なんと声をかける？ 次にどう動く？"
+    },
+    {
+      category: "友達関係",
+      title: "約束をやぶってしまった",
+      description: "「いっしょに帰ろう」と約束していたのに、うっかりわすれて先に帰ってしまった。",
+      question: "次に会ったとき、どんなふうに伝える？"
+    },
+    {
+      category: "授業",
+      title: "となりの子にたよられすぎ",
+      description: "となりの子が、いつも答えを聞いてくる。自分も考えたいのに、ちょっと困っている。",
+      question: "相手をきずつけずに、自分の気もちを伝えるには？"
+    },
+    {
+      category: "休み時間",
+      title: "遊びにさそわれた",
+      description: "友達から遊びにさそわれたけど、本当は今日は1人でゆっくりしたい気分。",
+      question: "相手をがっかりさせすぎず、自分の気もちも伝えるには？"
+    },
+    {
+      category: "友達関係",
+      title: "ほめてもらった",
+      description: "友達から「その絵、じょうずだね」とほめてもらった。少しはずかしい。",
+      question: "どんな言葉を返すと、おたがい気もちがいい?"
+    },
+    {
+      category: "クラス活動",
+      title: "係の仕事をわすれていた",
+      description: "朝、自分の係の仕事をすっかりわすれていた。先生に気づかれる前に思い出した。",
+      question: "どう行動する？ 何と伝える？"
+    },
+    {
+      category: "クラス活動",
+      title: "話し合いで意見が合わない",
+      description: "係の話し合いで、友達と自分の意見がぶつかってしまった。",
+      question: "自分の意見も伝えながら、相手の話もちゃんと聞くにはどうする？"
+    },
+    {
+      category: "登下校",
+      title: "下級生が泣いている",
+      description: "学校の帰り道、小さい子がしゃがんで泣いている。まわりに大人はいない。",
+      question: "まず何を見て、どう行動する？"
+    },
+    {
+      category: "友達関係",
+      title: "ゆずれないものがある",
+      description: "自分の大切なものを「かして」と言われた。でも、今日はかしたくない。",
+      question: "相手をきずつけないで「ことわる」には、どんな言い方がある？"
+    }
+  ];
+
+  const cardEl = document.getElementById("card");
+  const drawBtn = document.getElementById("drawBtn");
+  const redrawBtn = document.getElementById("redrawBtn");
+
+  let lastIndex = -1;
+
+  function pickScene() {
+    if (scenes.length <= 1) return scenes[0];
+    let idx;
+    do {
+      idx = Math.floor(Math.random() * scenes.length);
+    } while (idx === lastIndex);
+    lastIndex = idx;
+    return scenes[idx];
+  }
+
+  function renderScene(scene) {
+    cardEl.innerHTML = "";
+    cardEl.classList.remove("pop");
+    // 再アニメーション
+    void cardEl.offsetWidth;
+    cardEl.classList.add("pop");
+
+    const category = document.createElement("span");
+    category.className = "category";
+    category.textContent = "# " + scene.category;
+
+    const title = document.createElement("h2");
+    title.className = "scene-title";
+    title.textContent = scene.title;
+
+    const desc = document.createElement("p");
+    desc.className = "scene-description";
+    desc.textContent = scene.description;
+
+    const qBox = document.createElement("div");
+    qBox.className = "question-box";
+
+    const qLabel = document.createElement("div");
+    qLabel.className = "question-label";
+    qLabel.textContent = "つぎの行動を考えよう";
+
+    const qText = document.createElement("div");
+    qText.className = "question-text";
+    qText.textContent = scene.question;
+
+    qBox.appendChild(qLabel);
+    qBox.appendChild(qText);
+
+    cardEl.appendChild(category);
+    cardEl.appendChild(title);
+    cardEl.appendChild(desc);
+    cardEl.appendChild(qBox);
+  }
+
+  function handleDraw() {
+    const scene = pickScene();
+    renderScene(scene);
+    redrawBtn.disabled = false;
+    redrawBtn.style.opacity = "1";
+    redrawBtn.style.cursor = "pointer";
+  }
+
+  drawBtn.addEventListener("click", handleDraw);
+  redrawBtn.addEventListener("click", handleDraw);
+</script>
+</body>
+</html>
