@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SST カード - 学校のよくある場面</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Hiragino Maru Gothic ProN", "BIZ UDPGothic", "Meiryo", sans-serif;
+  background: #fff9f0;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+h1.app-title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #ff7043;
+  margin-bottom: 6px;
+  letter-spacing: 2px;
+}
+
+p.app-subtitle {
+  text-align: center;
+  font-size: 1rem;
+  color: #888;
+  margin-bottom: 24px;
+}
+
+/* ナビ */
+.nav-bar {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.nav-btn {
+  background: #fff;
+  border: 2px solid #ffcc80;
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #e65100;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-btn.active, .nav-btn:hover {
+  background: #ff7043;
+  color: #fff;
+  border-color: #ff7043;
+}
+
+/* カードラッパ */
+.card-container {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* カード本体 */
+.card {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+  overflow: hidden;
+  padding-bottom: 28px;
+}
+
+/* カテゴリバッジ */
+.category-badge {
+  display: inline-block;
+  background: #ffe0b2;
+  color: #e65100;
+  font-size: 0.85rem;
+  font-weight: bold;
+  border-radius: 999px;
+  padding: 4px 14px;
+  margin: 20px 0 0 20px;
+}
+
+/* イラスト */
+.illust-wrap {
+  background: #fff8ee;
+  margin: 12px 20px 0;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  overflow: hidden;
+}
+
+/* 場面タイトル */
+.scene-title {
+  font-size: 1.35rem;
+  font-weight: bold;
+  color: #333;
+  margin: 18px 20px 8px;
+  line-height: 1.4;
+}
+
+/* 場面説明 */
+.scene-desc {
+  font-size: 1rem;
+  color: #555;
+  margin: 0 20px 16px;
+  line-height: 1.7;
+}
+
+/* 吹き出し */
+.balloon-wrap {
+  margin: 0 20px 20px;
+}
+
+.balloon-label {
+  font-size: 0.8rem;
+  color: #ff7043;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.balloon {
+  position: relative;
+  background: #fff3e0;
+  border: 3px solid #ff7043;
+  border-radius: 16px;
+  padding: 14px 18px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #bf360c;
+  line-height: 1.5;
+  display: inline-block;
+  min-width: 60%;
+}
+
+.balloon::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 28px;
+  border: 10px solid transparent;
+  border-bottom-color: #ff7043;
+}
+
+.balloon::after {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 30px;
+  border: 8px solid transparent;
+  border-bottom-color: #fff3e0;
+}
+
+/* 考える問い */
+.questions {
+  margin: 0 20px 22px;
+  background: #e8f5e9;
+  border-radius: 14px;
+  padding: 14px 18px;
+}
+
+.questions-title {
+  font-size: 0.85rem;
+  color: #388e3c;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.questions li {
+  list-style: none;
+  font-size: 1rem;
+  color: #2e7d32;
+  padding: 4px 0;
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.questions li::before {
+  content: "💭";
+  position: absolute;
+  left: 0;
+}
+
+/* ボタンエリア */
+.btn-area {
+  display: flex;
+  gap: 12px;
+  margin: 0 20px;
+  justify-content: center;
+}
+
+.btn-prev, .btn-next {
+  flex: 1;
+  padding: 14px 0;
+  border: none;
+  border-radius: 999px;
+  font-size: 1.05rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.btn-prev:active, .btn-next:active {
+  transform: scale(0.97);
+}
+
+.btn-prev {
+  background: #f5f5f5;
+  color: #999;
+}
+
+.btn-next {
+  background: #ff7043;
+  color: #fff;
+}
+
+.btn-prev:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ページ番号 */
+.page-indicator {
+  text-align: center;
+  margin-top: 18px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffd0b5;
+  transition: background 0.2s;
+}
+
+.dot.active {
+  background: #ff7043;
+}
+
+@media (max-width: 480px) {
+  h1.app-title { font-size: 1.4rem; }
+  .scene-title { font-size: 1.15rem; }
+  .balloon { font-size: 1.1rem; }
+}
+</style>
+</head>
+<body>
+
+<h1 class="app-title">🌟 SST カード</h1>
+<p class="app-subtitle">学校のよくある場面を考えよう</p>
+
+<div class="nav-bar" id="navBar"></div>
+
+<div class="card-container">
+  <div class="card" id="mainCard">
+    <span class="category-badge" id="cardCategory"></span>
+    <div class="illust-wrap" id="cardIllust"></div>
+    <div class="scene-title" id="cardTitle"></div>
+    <div class="scene-desc" id="cardDesc"></div>
+    <div class="balloon-wrap">
+      <div class="balloon-label">👤 はじめの一言</div>
+      <div class="balloon" id="cardBalloon"></div>
+    </div>
+    <div class="questions">
+      <div class="questions-title">🤔 考えてみよう</div>
+      <ul id="cardQuestions"></ul>
+    </div>
+    <div class="btn-area">
+      <button class="btn-prev" id="btnPrev" onclick="move(-1)">◀ もどる</button>
+      <button class="btn-next" id="btnNext" onclick="move(1)">つぎへ ▶</button>
+    </div>
+  </div>
+  <div class="page-indicator" id="pageIndicator"></div>
+</div>
+
+<script>
+
+// -------- SVGイラスト定義 --------
+
+const svgJoinPlay = `
+<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="180">
+  <!-- 背景草 -->
+  <rect width="300" height="180" fill="#f0fff4"/>
+  <ellipse cx="150" cy="168" rx="140" ry="12" fill="#a5d6a7"/>
+  <!-- 左の子（ボールを持って遊んでいる） -->
+  <circle cx="80" cy="70" r="18" fill="#ffcc80"/>
+  <rect x="68" y="90" width="24" height="38" rx="8" fill="#42a5f5"/>
+  <line x1="68" y1="100" x2="52" y2="118" stroke="#42a5f5" stroke-width="6" stroke-linecap="round"/>
+  <line x1="92" y1="100" x2="108" y2="118" stroke="#42a5f5" stroke-width="6" stroke-linecap="round"/>
+  <line x1="72" y1="128" x2="64" y2="155" stroke="#1565c0" stroke-width="5" stroke-linecap="round"/>
+  <line x1="88" y1="128" x2="96" y2="155" stroke="#1565c0" stroke-width="5" stroke-linecap="round"/>
+  <!-- ボール -->
+  <circle cx="112" cy="115" r="14" fill="#ff7043"/>
+  <path d="M102 110 Q112 104 122 110" stroke="#fff" stroke-width="2" fill="none"/>
+  <!-- 右の子（笑顔で遊んでいる） -->
+  <circle cx="190" cy="70" r="18" fill="#ffcc80"/>
+  <rect x="178" y="90" width="24" height="38" rx="8" fill="#66bb6a"/>
+  <line x1="178" y1="100" x2="162" y2="115" stroke="#66bb6a" stroke-width="6" stroke-linecap="round"/>
+  <line x1="202" y1="100" x2="218" y2="115" stroke="#66bb6a" stroke-width="6" stroke-linecap="round"/>
+  <line x1="182" y1="128" x2="174" y2="155" stroke="#2e7d32" stroke-width="5" stroke-linecap="round"/>
+  <line x1="198" y1="128" x2="206" y2="155" stroke="#2e7d32" stroke-width="5" stroke-linecap="round"/>
+  <!-- 顔パーツ left -->
+  <circle cx="74" cy="67" r="3" fill="#5d4037"/>
+  <circle cx="86" cy="67" r="3" fill="#5d4037"/>
+  <path d="M74 76 Q80 81 86 76" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 顔パーツ right -->
+  <circle cx="184" cy="67" r="3" fill="#5d4037"/>
+  <circle cx="196" cy="67" r="3" fill="#5d4037"/>
+  <path d="M184 76 Q190 81 196 76" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 仲間に入りたい子（右端・少し離れて立っている） -->
+  <circle cx="258" cy="72" r="18" fill="#ffcc80"/>
+  <rect x="246" y="92" width="24" height="38" rx="8" fill="#ffa726"/>
+  <line x1="246" y1="102" x2="232" y2="118" stroke="#ffa726" stroke-width="6" stroke-linecap="round"/>
+  <line x1="270" y1="102" x2="254" y2="115" stroke="#ffa726" stroke-width="6" stroke-linecap="round"/>
+  <line x1="250" y1="130" x2="242" y2="155" stroke="#e65100" stroke-width="5" stroke-linecap="round"/>
+  <line x1="266" y1="130" x2="274" y2="155" stroke="#e65100" stroke-width="5" stroke-linecap="round"/>
+  <!-- 顔パーツ（少し不安そう） -->
+  <circle cx="252" cy="69" r="3" fill="#5d4037"/>
+  <circle cx="264" cy="69" r="3" fill="#5d4037"/>
+  <path d="M252 79 Q258 76 264 79" stroke="#5d4037" stroke-width="2" fill="none"/>
+</svg>`;
+
+const svgLend = `
+<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="180">
+  <rect width="300" height="180" fill="#fffde7"/>
+  <ellipse cx="150" cy="168" rx="130" ry="11" fill="#ffe082"/>
+  <!-- 左の子（色鉛筆を持っている） -->
+  <circle cx="90" cy="68" r="18" fill="#ffcc80"/>
+  <rect x="78" y="88" width="24" height="38" rx="8" fill="#ec407a"/>
+  <line x1="78" y1="98" x2="60" y2="112" stroke="#ec407a" stroke-width="6" stroke-linecap="round"/>
+  <!-- 色鉛筆セット -->
+  <rect x="44" y="105" width="28" height="12" rx="4" fill="#fff"/>
+  <rect x="47" y="106" width="5" height="10" rx="2" fill="#ef5350"/>
+  <rect x="54" y="106" width="5" height="10" rx="2" fill="#42a5f5"/>
+  <rect x="61" y="106" width="5" height="10" rx="2" fill="#66bb6a"/>
+  <line x1="102" y1="98" x2="116" y2="112" stroke="#ec407a" stroke-width="6" stroke-linecap="round"/>
+  <line x1="82" y1="126" x2="74" y2="154" stroke="#ad1457" stroke-width="5" stroke-linecap="round"/>
+  <line x1="98" y1="126" x2="106" y2="154" stroke="#ad1457" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="84" cy="65" r="3" fill="#5d4037"/>
+  <circle cx="96" cy="65" r="3" fill="#5d4037"/>
+  <path d="M84 75 Q90 80 96 75" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 右の子（手を差し出している） -->
+  <circle cx="210" cy="68" r="18" fill="#ffcc80"/>
+  <rect x="198" y="88" width="24" height="38" rx="8" fill="#7e57c2"/>
+  <!-- 手を出す -->
+  <line x1="198" y1="98" x2="176" y2="118" stroke="#7e57c2" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="170" cy="121" rx="10" ry="7" fill="#ffcc80"/>
+  <line x1="222" y1="98" x2="236" y2="112" stroke="#7e57c2" stroke-width="6" stroke-linecap="round"/>
+  <line x1="202" y1="126" x2="194" y2="154" stroke="#4527a0" stroke-width="5" stroke-linecap="round"/>
+  <line x1="218" y1="126" x2="226" y2="154" stroke="#4527a0" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="204" cy="65" r="3" fill="#5d4037"/>
+  <circle cx="216" cy="65" r="3" fill="#5d4037"/>
+  <path d="M204 77 Q210 73 216 77" stroke="#5d4037" stroke-width="2" fill="none"/>
+</svg>`;
+
+const svgFight = `
+<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="180">
+  <rect width="300" height="180" fill="#fce4ec"/>
+  <ellipse cx="150" cy="168" rx="130" ry="11" fill="#f48fb1"/>
+  <!-- 左の子（そっぽ向いている） -->
+  <circle cx="90" cy="68" r="18" fill="#ffcc80"/>
+  <rect x="78" y="88" width="24" height="38" rx="8" fill="#ef5350"/>
+  <line x1="78" y1="98" x2="62" y2="115" stroke="#ef5350" stroke-width="6" stroke-linecap="round"/>
+  <line x1="102" y1="98" x2="116" y2="113" stroke="#ef5350" stroke-width="6" stroke-linecap="round"/>
+  <line x1="82" y1="126" x2="74" y2="154" stroke="#b71c1c" stroke-width="5" stroke-linecap="round"/>
+  <line x1="98" y1="126" x2="106" y2="154" stroke="#b71c1c" stroke-width="5" stroke-linecap="round"/>
+  <!-- 顔（むすっとして左向き） -->
+  <circle cx="83" cy="65" r="3" fill="#5d4037"/>
+  <circle cx="93" cy="65" r="3" fill="#5d4037"/>
+  <path d="M83 76 Q88 73 93 76" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 右の子（そっぽ向いている） -->
+  <circle cx="210" cy="68" r="18" fill="#ffcc80"/>
+  <rect x="198" y="88" width="24" height="38" rx="8" fill="#42a5f5"/>
+  <line x1="198" y1="98" x2="184" y2="113" stroke="#42a5f5" stroke-width="6" stroke-linecap="round"/>
+  <line x1="222" y1="98" x2="238" y2="115" stroke="#42a5f5" stroke-width="6" stroke-linecap="round"/>
+  <line x1="202" y1="126" x2="194" y2="154" stroke="#1565c0" stroke-width="5" stroke-linecap="round"/>
+  <line x1="218" y1="126" x2="226" y2="154" stroke="#1565c0" stroke-width="5" stroke-linecap="round"/>
+  <!-- 顔（むすっとして右向き） -->
+  <circle cx="207" cy="65" r="3" fill="#5d4037"/>
+  <circle cx="217" cy="65" r="3" fill="#5d4037"/>
+  <path d="M207 76 Q212 73 217 76" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 間にバツ・稲妻マーク -->
+  <text x="144" y="105" font-size="38" text-anchor="middle" fill="#ffca28">⚡</text>
+</svg>`;
+
+const svgAlone = `
+<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="180">
+  <rect width="300" height="180" fill="#e3f2fd"/>
+  <ellipse cx="150" cy="168" rx="130" ry="11" fill="#90caf9"/>
+  <!-- ベンチ -->
+  <rect x="80" y="130" width="140" height="10" rx="4" fill="#bcaaa4"/>
+  <rect x="90" y="140" width="10" height="20" rx="3" fill="#a1887f"/>
+  <rect x="200" y="140" width="10" height="20" rx="3" fill="#a1887f"/>
+  <!-- 座っている子 -->
+  <circle cx="150" cy="88" r="20" fill="#ffcc80"/>
+  <rect x="132" y="108" width="36" height="22" rx="8" fill="#78909c"/>
+  <!-- 足（曲げて座っている） -->
+  <line x1="136" y1="130" x2="124" y2="150" stroke="#546e7a" stroke-width="6" stroke-linecap="round"/>
+  <line x1="164" y1="130" x2="176" y2="150" stroke="#546e7a" stroke-width="6" stroke-linecap="round"/>
+  <!-- 腕（膝に置いている） -->
+  <line x1="132" y1="118" x2="118" y2="130" stroke="#78909c" stroke-width="6" stroke-linecap="round"/>
+  <line x1="168" y1="118" x2="182" y2="130" stroke="#78909c" stroke-width="6" stroke-linecap="round"/>
+  <!-- 顔（下を向いている） -->
+  <circle cx="143" cy="87" r="3.5" fill="#5d4037"/>
+  <circle cx="157" cy="87" r="3.5" fill="#5d4037"/>
+  <path d="M143 98 Q150 94 157 98" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 涙 -->
+  <ellipse cx="141" cy="97" rx="2.5" ry="4" fill="#64b5f6" opacity="0.8"/>
+  <!-- 遠くで遊ぶ子たちのシルエット -->
+  <circle cx="42" cy="105" r="10" fill="#bdbdbd" opacity="0.7"/>
+  <rect x="36" y="116" width="12" height="20" rx="5" fill="#bdbdbd" opacity="0.7"/>
+  <circle cx="62" cy="100" r="10" fill="#bdbdbd" opacity="0.7"/>
+  <rect x="56" y="111" width="12" height="20" rx="5" fill="#bdbdbd" opacity="0.7"/>
+  <circle cx="248" cy="105" r="10" fill="#bdbdbd" opacity="0.7"/>
+  <rect x="242" y="116" width="12" height="20" rx="5" fill="#bdbdbd" opacity="0.7"/>
+</svg>`;
+
+const svgTeacher = `
+<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="180">
+  <rect width="300" height="180" fill="#f3e5f5"/>
+  <ellipse cx="150" cy="170" rx="130" ry="11" fill="#ce93d8"/>
+  <!-- 黒板 -->
+  <rect x="30" y="20" width="240" height="80" rx="8" fill="#37474f"/>
+  <rect x="36" y="26" width="228" height="68" rx="4" fill="#455a64"/>
+  <text x="150" y="70" font-size="22" text-anchor="middle" fill="#fffde7" font-family="serif">1+2=?</text>
+  <!-- 先生 -->
+  <circle cx="70" cy="118" r="17" fill="#ffcc80"/>
+  <rect x="56" y="136" width="28" height="32" rx="8" fill="#7e57c2"/>
+  <line x1="56" y1="146" x2="40" y2="158" stroke="#7e57c2" stroke-width="6" stroke-linecap="round"/>
+  <!-- 指示棒 -->
+  <line x1="40" y1="158" x2="30" y2="50" stroke="#8d6e63" stroke-width="3" stroke-linecap="round"/>
+  <line x1="222" y1="146" x2="238" y2="158" stroke="#7e57c2" stroke-width="6" stroke-linecap="round"/>
+  <line x1="60" y1="168" x2="52" y2="190" stroke="#4527a0" stroke-width="5" stroke-linecap="round"/>
+  <line x1="76" y1="168" x2="84" y2="190" stroke="#4527a0" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="64" cy="115" r="3" fill="#5d4037"/>
+  <circle cx="76" cy="115" r="3" fill="#5d4037"/>
+  <path d="M64 125 Q70 129 76 125" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 生徒（手を挙げかけている） -->
+  <circle cx="210" cy="122" r="17" fill="#ffcc80"/>
+  <rect x="196" y="140" width="28" height="28" rx="8" fill="#42a5f5"/>
+  <!-- 手を少し上げている -->
+  <line x1="196" y1="150" x2="182" y2="136" stroke="#42a5f5" stroke-width="6" stroke-linecap="round"/>
+  <line x1="224" y1="150" x2="238" y2="158" stroke="#42a5f5" stroke-width="6" stroke-linecap="round"/>
+  <line x1="200" y1="168" x2="192" y2="190" stroke="#1565c0" stroke-width="5" stroke-linecap="round"/>
+  <line x1="216" y1="168" x2="224" y2="190" stroke="#1565c0" stroke-width="5" stroke-linecap="round"/>
+  <!-- 顔（少し不安そう） -->
+  <circle cx="204" cy="119" r="3" fill="#5d4037"/>
+  <circle cx="216" cy="119" r="3" fill="#5d4037"/>
+  <path d="M204 130 Q210 126 216 130" stroke="#5d4037" stroke-width="2" fill="none"/>
+</svg>`;
+
+const svgMeanWord = `
+<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="180">
+  <rect width="300" height="180" fill="#fff8e1"/>
+  <ellipse cx="150" cy="168" rx="130" ry="11" fill="#ffcc02"/>
+  <!-- 左の子（言っている側・指を向けている） -->
+  <circle cx="85" cy="68" r="18" fill="#ffcc80"/>
+  <rect x="73" y="88" width="24" height="38" rx="8" fill="#ef5350"/>
+  <!-- 指を相手に向ける -->
+  <line x1="97" y1="96" x2="128" y2="105" stroke="#ef5350" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="135" cy="107" rx="8" ry="6" fill="#ffcc80"/>
+  <line x1="73" y1="100" x2="58" y2="115" stroke="#ef5350" stroke-width="6" stroke-linecap="round"/>
+  <line x1="77" y1="126" x2="69" y2="154" stroke="#b71c1c" stroke-width="5" stroke-linecap="round"/>
+  <line x1="93" y1="126" x2="101" y2="154" stroke="#b71c1c" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="79" cy="65" r="3" fill="#5d4037"/>
+  <circle cx="91" cy="65" r="3" fill="#5d4037"/>
+  <!-- 怒り顔 -->
+  <path d="M77 58 Q85 62 91 58" stroke="#5d4037" stroke-width="2.5" fill="none"/>
+  <path d="M79 75 Q85 72 91 75" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- セリフの吹き出し（小） -->
+  <ellipse cx="160" cy="55" rx="38" ry="18" fill="#fff9c4" stroke="#fdd835" stroke-width="2"/>
+  <line x1="140" y1="65" x2="130" y2="78" stroke="#fdd835" stroke-width="2"/>
+  <text x="160" y="60" font-size="11" text-anchor="middle" fill="#f57f17">ひどいよ！</text>
+  <!-- 右の子（言われた側・ショックを受けている） -->
+  <circle cx="220" cy="68" r="18" fill="#ffcc80"/>
+  <rect x="208" y="88" width="24" height="38" rx="8" fill="#42a5f5"/>
+  <line x1="208" y1="98" x2="192" y2="112" stroke="#42a5f5" stroke-width="6" stroke-linecap="round"/>
+  <line x1="232" y1="98" x2="246" y2="114" stroke="#42a5f5" stroke-width="6" stroke-linecap="round"/>
+  <line x1="212" y1="126" x2="204" y2="154" stroke="#1565c0" stroke-width="5" stroke-linecap="round"/>
+  <line x1="228" y1="126" x2="236" y2="154" stroke="#1565c0" stroke-width="5" stroke-linecap="round"/>
+  <!-- ショック顔 -->
+  <circle cx="214" cy="65" r="3" fill="#5d4037"/>
+  <circle cx="226" cy="65" r="3" fill="#5d4037"/>
+  <path d="M214 76 Q220 72 226 76" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 涙 -->
+  <ellipse cx="212" cy="75" rx="2" ry="3.5" fill="#64b5f6" opacity="0.9"/>
+</svg>`;
+
+// -------- 場面データ --------
+const scenes = [
+  {
+    category: "友だちとの場面",
+    title: "いっしょにあそびたい",
+    desc: "休み時間、クラスの子たちがドッジボールをして楽しそうに遊んでいます。あなたもいっしょに遊びたいな、と思っています。",
+    firstWord: "いっしょにやっていい？",
+    questions: [
+      "言われた子は、どんな気持ちかな？",
+      "あなたなら、どんな言葉を返す？",
+      "いっしょに遊べるように、どうしたらいいかな？"
+    ],
+    svg: svgJoinPlay
+  },
+  {
+    category: "友だちとの場面",
+    title: "もの を かしてほしい",
+    desc: "図工の時間に、となりの子がきれいな色鉛筆を持っています。あなたの色鉛筆には、その色がありません。",
+    firstWord: "それ、かしてくれる？",
+    questions: [
+      "貸してほしいと言われたとき、どんな気持ち？",
+      "あなたなら、どんな言葉を返す？",
+      "もし使っている途中だったら、どうする？"
+    ],
+    svg: svgLend
+  },
+  {
+    category: "友だちとの場面",
+    title: "けんかした あと",
+    desc: "休み時間に、仲良しの友だちとけんかをしてしまいました。お互いに何も言わずにいます。仲直りしたいな、と思っています。",
+    firstWord: "もう、しらない！",
+    questions: [
+      "このあと、ふたりはどんな気持ちかな？",
+      "あなたなら、どんな言葉をかける？",
+      "仲直りするために、どうしたらいいかな？"
+    ],
+    svg: svgFight
+  },
+  {
+    category: "友だちとの場面",
+    title: "ひとり ぼっちの子",
+    desc: "昼休みに、クラスの子がひとりでベンチに座っています。周りのみんなは楽しそうに遊んでいます。",
+    firstWord: "1人になっちゃった…",
+    questions: [
+      "この子は、どんな気持ちかな？",
+      "あなたなら、どんな言葉をかける？",
+      "あなたなら、どんなことをしてあげる？"
+    ],
+    svg: svgAlone
+  },
+  {
+    category: "先生との場面",
+    title: "わからないけど きけない",
+    desc: "算数の時間に、先生の説明がよくわかりませんでした。手を挙げて聞きたいけど、なんだか恥ずかしくてドキドキしています。",
+    firstWord: "わからないけど、聞けない…",
+    questions: [
+      "この子は、どんな気持ちかな？",
+      "あなたなら、先生にどんな言葉で伝える？",
+      "もし友だちが同じ気持ちだったら、どうしてあげる？"
+    ],
+    svg: svgTeacher
+  },
+  {
+    category: "友だちとの場面",
+    title: "いやな ことを 言われた",
+    desc: "クラスの子に、傷つくような言葉を言われました。びっくりして、どうしたらいいかわかりません。",
+    firstWord: "なんでそんなこと言うの？",
+    questions: [
+      "言われた子は、どんな気持ちかな？",
+      "あなたならどんな言葉を返す？",
+      "先生や友だちに、どう伝えればいいかな？"
+    ],
+    svg: svgMeanWord
+  }
+];
+
+// -------- カード表示ロジック --------
+let current = 0;
+
+function renderCard(idx) {
+  const s = scenes[idx];
+
+  document.getElementById("cardCategory").textContent = s.category;
+  document.getElementById("cardIllust").innerHTML = s.svg;
+  document.getElementById("cardTitle").textContent = s.title;
+  document.getElementById("cardDesc").textContent = s.desc;
+  document.getElementById("cardBalloon").textContent = s.firstWord;
+
+  const ul = document.getElementById("cardQuestions");
+  ul.innerHTML = "";
+  s.questions.forEach(q => {
+    const li = document.createElement("li");
+    li.textContent = q;
+    ul.appendChild(li);
+  });
+
+  document.getElementById("btnPrev").disabled = (idx === 0);
+  document.getElementById("btnNext").disabled = (idx === scenes.length - 1);
+  if (idx === scenes.length - 1) {
+    document.getElementById("btnNext").textContent = "さいご ✓";
+  } else {
+    document.getElementById("btnNext").textContent = "つぎへ ▶";
+  }
+
+  // ドット更新
+  const dots = document.querySelectorAll(".dot");
+  dots.forEach((d, i) => d.classList.toggle("active", i === idx));
+
+  // ナビボタン更新
+  const navBtns = document.querySelectorAll(".nav-btn");
+  navBtns.forEach((b, i) => b.classList.toggle("active", i === idx));
+
+  // カードをふわっと表示
+  const card = document.getElementById("mainCard");
+  card.style.opacity = "0";
+  card.style.transform = "translateY(10px)";
+  requestAnimationFrame(() => {
+    card.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+    card.style.opacity = "1";
+    card.style.transform = "translateY(0)";
+  });
+}
+
+function move(dir) {
+  const next = current + dir;
+  if (next < 0 || next >= scenes.length) return;
+  current = next;
+  renderCard(current);
+}
+
+function goTo(idx) {
+  current = idx;
+  renderCard(current);
+}
+
+// ナビバー生成
+function buildNav() {
+  const bar = document.getElementById("navBar");
+  scenes.forEach((s, i) => {
+    const btn = document.createElement("button");
+    btn.className = "nav-btn" + (i === 0 ? " active" : "");
+    btn.textContent = (i + 1) + ". " + s.title;
+    btn.onclick = () => goTo(i);
+    bar.appendChild(btn);
+  });
+}
+
+// ページドット生成
+function buildDots() {
+  const pi = document.getElementById("pageIndicator");
+  scenes.forEach((_, i) => {
+    const d = document.createElement("div");
+    d.className = "dot" + (i === 0 ? " active" : "");
+    d.onclick = () => goTo(i);
+    d.style.cursor = "pointer";
+    pi.appendChild(d);
+  });
+}
+
+buildNav();
+buildDots();
+renderCard(0);
+
+</script>
+</body>
+</html>
+
