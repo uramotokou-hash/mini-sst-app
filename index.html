@@ -1142,6 +1142,298 @@ const svgSlowWalk = `
   <path d="M82 102 Q88 107 94 102" stroke="#5d4037" stroke-width="2" fill="none"/>
 </svg>`;
 
+const svgSecret = `
+<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="180">
+  <rect width="300" height="180" fill="#f3e5f5"/>
+  <ellipse cx="150" cy="170" rx="130" ry="10" fill="#ce93d8"/>
+  <!-- 左の子（秘密を打ち明けている） -->
+  <circle cx="95" cy="80" r="18" fill="#ffcc80"/>
+  <rect x="83" y="100" width="24" height="34" rx="8" fill="#ab47bc"/>
+  <line x1="107" y1="106" x2="126" y2="96" stroke="#ab47bc" stroke-width="6" stroke-linecap="round"/>
+  <line x1="83" y1="108" x2="67" y2="120" stroke="#ab47bc" stroke-width="6" stroke-linecap="round"/>
+  <line x1="87" y1="134" x2="79" y2="158" stroke="#6a1b9a" stroke-width="5" stroke-linecap="round"/>
+  <line x1="103" y1="134" x2="111" y2="158" stroke="#6a1b9a" stroke-width="5" stroke-linecap="round"/>
+  <!-- 口に手を当てる -->
+  <ellipse cx="130" cy="93" rx="10" ry="7" fill="#ffcc80"/>
+  <!-- 顔（ひそひそ顔） -->
+  <circle cx="89" cy="77" r="3" fill="#5d4037"/>
+  <circle cx="101" cy="77" r="3" fill="#5d4037"/>
+  <path d="M89 87 Q95 91 101 87" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 吹き出し（鍵マーク） -->
+  <ellipse cx="148" cy="48" rx="36" ry="20" fill="#fff9c4" stroke="#f9a825" stroke-width="2"/>
+  <line x1="126" y1="60" x2="118" y2="75" stroke="#f9a825" stroke-width="2"/>
+  <text x="148" y="54" font-size="16" text-anchor="middle" fill="#f57f17">🔒</text>
+  <!-- 右の子（聞いている） -->
+  <circle cx="205" cy="80" r="18" fill="#ffcc80"/>
+  <rect x="193" y="100" width="24" height="34" rx="8" fill="#42a5f5"/>
+  <line x1="193" y1="108" x2="174" y2="96" stroke="#42a5f5" stroke-width="6" stroke-linecap="round"/>
+  <line x1="217" y1="108" x2="233" y2="120" stroke="#42a5f5" stroke-width="6" stroke-linecap="round"/>
+  <line x1="197" y1="134" x2="189" y2="158" stroke="#1565c0" stroke-width="5" stroke-linecap="round"/>
+  <line x1="213" y1="134" x2="221" y2="158" stroke="#1565c0" stroke-width="5" stroke-linecap="round"/>
+  <!-- やや驚いた顔 -->
+  <circle cx="199" cy="77" r="3.5" fill="#5d4037"/>
+  <circle cx="211" cy="77" r="3.5" fill="#5d4037"/>
+  <ellipse cx="205" cy="88" rx="6" ry="5" fill="none" stroke="#5d4037" stroke-width="2"/>
+</svg>`;
+
+const svgLaughed = `
+<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="180">
+  <rect width="300" height="180" fill="#fce4ec"/>
+  <ellipse cx="150" cy="172" rx="130" ry="10" fill="#f48fb1"/>
+  <!-- 黒板 -->
+  <rect x="16" y="10" width="180" height="52" rx="7" fill="#37474f"/>
+  <rect x="22" y="16" width="168" height="40" rx="4" fill="#455a64"/>
+  <text x="106" y="42" font-size="13" text-anchor="middle" fill="#fffde7">わたしの作文</text>
+  <!-- 発表している子（前に出ている） -->
+  <circle cx="60" cy="95" r="17" fill="#ffcc80"/>
+  <rect x="48" y="113" width="24" height="30" rx="8" fill="#ef5350"/>
+  <line x1="48" y1="123" x2="32" y2="135" stroke="#ef5350" stroke-width="5" stroke-linecap="round"/>
+  <!-- 紙を持つ -->
+  <rect x="18" y="129" width="22" height="16" rx="3" fill="#fffde7" stroke="#bdbdbd" stroke-width="1.5"/>
+  <line x1="72" y1="121" x2="84" y2="132" stroke="#ef5350" stroke-width="5" stroke-linecap="round"/>
+  <line x1="52" y1="143" x2="44" y2="165" stroke="#b71c1c" stroke-width="5" stroke-linecap="round"/>
+  <line x1="68" y1="143" x2="76" y2="165" stroke="#b71c1c" stroke-width="5" stroke-linecap="round"/>
+  <!-- 悲しい顔 -->
+  <circle cx="54" cy="92" r="3" fill="#5d4037"/>
+  <circle cx="66" cy="92" r="3" fill="#5d4037"/>
+  <path d="M54 103 Q60 100 66 103" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <ellipse cx="52" cy="102" rx="2" ry="3.5" fill="#64b5f6" opacity="0.9"/>
+  <!-- 笑っているクラスメート（右側3人） -->
+  <circle cx="190" cy="90" r="14" fill="#ffcc80"/>
+  <rect x="180" y="104" width="20" height="24" rx="7" fill="#42a5f5"/>
+  <line x1="180" y1="114" x2="166" y2="124" stroke="#42a5f5" stroke-width="5" stroke-linecap="round"/>
+  <line x1="200" y1="112" x2="212" y2="122" stroke="#42a5f5" stroke-width="5" stroke-linecap="round"/>
+  <line x1="184" y1="128" x2="176" y2="150" stroke="#1565c0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="196" y1="128" x2="204" y2="150" stroke="#1565c0" stroke-width="4" stroke-linecap="round"/>
+  <!-- 笑い顔 -->
+  <circle cx="184" cy="87" r="2.5" fill="#5d4037"/>
+  <circle cx="196" cy="87" r="2.5" fill="#5d4037"/>
+  <path d="M184 96 Q190 101 196 96" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 2人目 -->
+  <circle cx="230" cy="94" r="13" fill="#ffcc80"/>
+  <rect x="221" y="107" width="18" height="22" rx="6" fill="#66bb6a"/>
+  <circle cx="225" cy="91" r="2.5" fill="#5d4037"/>
+  <circle cx="235" cy="91" r="2.5" fill="#5d4037"/>
+  <path d="M225 100 Q230 105 235 100" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <line x1="221" y1="116" x2="208" y2="126" stroke="#66bb6a" stroke-width="4" stroke-linecap="round"/>
+  <line x1="239" y1="114" x2="252" y2="122" stroke="#66bb6a" stroke-width="4" stroke-linecap="round"/>
+  <!-- 笑い声 -->
+  <text x="215" y="74" font-size="12" fill="#e91e63" opacity="0.8">ふふふ</text>
+</svg>`;
+
+const svgForceIt = `
+<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="180">
+  <rect width="300" height="180" fill="#fff8e1"/>
+  <ellipse cx="150" cy="170" rx="130" ry="10" fill="#ffe082"/>
+  <ellipse cx="150" cy="162" rx="120" ry="8" fill="#a5d6a7"/>
+  <!-- 鬼にされた子（中央） -->
+  <circle cx="150" cy="78" r="20" fill="#ffcc80"/>
+  <!-- 鬼の帽子風ヘアバンド -->
+  <rect x="132" y="60" width="36" height="8" rx="4" fill="#ef5350"/>
+  <rect x="140" y="52" width="8" height="12" rx="3" fill="#ef5350"/>
+  <rect x="152" y="52" width="8" height="12" rx="3" fill="#ef5350"/>
+  <rect x="138" y="98" width="24" height="34" rx="8" fill="#ffa726"/>
+  <line x1="138" y1="108" x2="122" y2="122" stroke="#ffa726" stroke-width="6" stroke-linecap="round"/>
+  <line x1="162" y1="108" x2="178" y2="122" stroke="#ffa726" stroke-width="6" stroke-linecap="round"/>
+  <line x1="142" y1="132" x2="134" y2="155" stroke="#e65100" stroke-width="5" stroke-linecap="round"/>
+  <line x1="158" y1="132" x2="166" y2="155" stroke="#e65100" stroke-width="5" stroke-linecap="round"/>
+  <!-- 困り顔 -->
+  <circle cx="144" cy="75" r="3" fill="#5d4037"/>
+  <circle cx="156" cy="75" r="3" fill="#5d4037"/>
+  <path d="M144 87 Q150 84 156 87" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 指さしているグループ（左右） -->
+  <circle cx="60" cy="88" r="15" fill="#ffcc80"/>
+  <rect x="50" y="103" width="20" height="28" rx="7" fill="#42a5f5"/>
+  <!-- 指を向ける -->
+  <line x1="70" y1="110" x2="94" y2="106" stroke="#42a5f5" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="100" cy="104" rx="8" ry="6" fill="#ffcc80"/>
+  <line x1="50" y1="112" x2="36" y2="122" stroke="#42a5f5" stroke-width="5" stroke-linecap="round"/>
+  <line x1="54" y1="131" x2="46" y2="152" stroke="#1565c0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="66" y1="131" x2="74" y2="152" stroke="#1565c0" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="54" cy="85" r="2.5" fill="#5d4037"/>
+  <circle cx="66" cy="85" r="2.5" fill="#5d4037"/>
+  <path d="M54 94 Q60 98 66 94" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 右グループ -->
+  <circle cx="240" cy="88" r="15" fill="#ffcc80"/>
+  <rect x="230" y="103" width="20" height="28" rx="7" fill="#66bb6a"/>
+  <line x1="230" y1="110" x2="206" y2="106" stroke="#66bb6a" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="200" cy="104" rx="8" ry="6" fill="#ffcc80"/>
+  <line x1="250" y1="112" x2="264" y2="122" stroke="#66bb6a" stroke-width="5" stroke-linecap="round"/>
+  <line x1="234" y1="131" x2="226" y2="152" stroke="#2e7d32" stroke-width="4" stroke-linecap="round"/>
+  <line x1="246" y1="131" x2="254" y2="152" stroke="#2e7d32" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="234" cy="85" r="2.5" fill="#5d4037"/>
+  <circle cx="246" cy="85" r="2.5" fill="#5d4037"/>
+  <path d="M234 94 Q240 98 246 94" stroke="#5d4037" stroke-width="2" fill="none"/>
+</svg>`;
+
+const svgCopyHW = `
+<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="180">
+  <rect width="300" height="180" fill="#e8f5e9"/>
+  <ellipse cx="150" cy="170" rx="130" ry="10" fill="#a5d6a7"/>
+  <!-- 机（横並び） -->
+  <rect x="20" y="120" width="120" height="10" rx="4" fill="#bcaaa4"/>
+  <rect x="30" y="130" width="8" height="28" rx="3" fill="#a1887f"/>
+  <rect x="122" y="130" width="8" height="28" rx="3" fill="#a1887f"/>
+  <rect x="160" y="120" width="120" height="10" rx="4" fill="#bcaaa4"/>
+  <rect x="170" y="130" width="8" height="28" rx="3" fill="#a1887f"/>
+  <rect x="262" y="130" width="8" height="28" rx="3" fill="#a1887f"/>
+  <!-- 左の子の宿題（ある） -->
+  <rect x="32" y="100" width="52" height="22" rx="3" fill="#fffde7" stroke="#bdbdbd" stroke-width="1.5"/>
+  <line x1="40" y1="108" x2="76" y2="108" stroke="#9e9e9e" stroke-width="1.5"/>
+  <line x1="40" y1="114" x2="76" y2="114" stroke="#9e9e9e" stroke-width="1.5"/>
+  <text x="58" y="96" font-size="9" text-anchor="middle" fill="#388e3c">宿題</text>
+  <!-- 右の子の机（空） -->
+  <rect x="172" y="100" width="52" height="22" rx="3" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="198" y="114" font-size="9" text-anchor="middle" fill="#bdbdbd">？</text>
+  <!-- 左の子（宿題を持っている） -->
+  <circle cx="80" cy="70" r="17" fill="#ffcc80"/>
+  <rect x="68" y="88" width="24" height="30" rx="8" fill="#66bb6a"/>
+  <line x1="68" y1="98" x2="52" y2="110" stroke="#66bb6a" stroke-width="5" stroke-linecap="round"/>
+  <line x1="92" y1="96" x2="106" y2="108" stroke="#66bb6a" stroke-width="5" stroke-linecap="round"/>
+  <line x1="72" y1="118" x2="64" y2="142" stroke="#2e7d32" stroke-width="5" stroke-linecap="round"/>
+  <line x1="88" y1="118" x2="96" y2="142" stroke="#2e7d32" stroke-width="5" stroke-linecap="round"/>
+  <!-- 迷い顔 -->
+  <circle cx="74" cy="67" r="3" fill="#5d4037"/>
+  <circle cx="86" cy="67" r="3" fill="#5d4037"/>
+  <path d="M74 78 Q80 75 86 78" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 右の子（お願いしている） -->
+  <circle cx="210" cy="70" r="17" fill="#ffcc80"/>
+  <rect x="198" y="88" width="24" height="30" rx="8" fill="#ffa726"/>
+  <!-- 手を合わせるポーズ -->
+  <line x1="198" y1="98" x2="180" y2="108" stroke="#ffa726" stroke-width="5" stroke-linecap="round"/>
+  <line x1="222" y1="98" x2="240" y2="108" stroke="#ffa726" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="174" cy="110" rx="9" ry="6" fill="#ffcc80"/>
+  <ellipse cx="246" cy="110" rx="9" ry="6" fill="#ffcc80"/>
+  <line x1="202" y1="118" x2="194" y2="142" stroke="#e65100" stroke-width="5" stroke-linecap="round"/>
+  <line x1="218" y1="118" x2="226" y2="142" stroke="#e65100" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="204" cy="67" r="3" fill="#5d4037"/>
+  <circle cx="216" cy="67" r="3" fill="#5d4037"/>
+  <!-- 上目遣い顔 -->
+  <path d="M204 78 Q210 83 216 78" stroke="#5d4037" stroke-width="2" fill="none"/>
+</svg>`;
+
+const svgGossip = `
+<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="180">
+  <rect width="300" height="180" fill="#f9fbe7"/>
+  <ellipse cx="150" cy="170" rx="130" ry="10" fill="#dce775"/>
+  <!-- 遠くにいる子（悪口の対象） -->
+  <circle cx="248" cy="90" r="14" fill="#ffcc80" opacity="0.7"/>
+  <rect x="238" y="104" width="20" height="26" rx="7" fill="#90caf9" opacity="0.7"/>
+  <line x1="238" y1="114" x2="224" y2="124" stroke="#90caf9" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="258" y1="112" x2="270" y2="122" stroke="#90caf9" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="242" y1="130" x2="234" y2="152" stroke="#5c8ab5" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+  <line x1="254" y1="130" x2="262" y2="152" stroke="#5c8ab5" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+  <circle cx="242" cy="87" r="2.5" fill="#5d4037" opacity="0.7"/>
+  <circle cx="254" cy="87" r="2.5" fill="#5d4037" opacity="0.7"/>
+  <path d="M242 97 Q248 101 254 97" stroke="#5d4037" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <!-- 悪口を言っている2人（手前） -->
+  <circle cx="88" cy="80" r="17" fill="#ffcc80"/>
+  <rect x="76" y="98" width="24" height="30" rx="8" fill="#ef5350"/>
+  <!-- 口に手を当て声を抑えて話す -->
+  <line x1="100" y1="104" x2="118" y2="96" stroke="#ef5350" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="124" cy="93" rx="9" ry="6" fill="#ffcc80"/>
+  <line x1="76" y1="106" x2="60" y2="116" stroke="#ef5350" stroke-width="5" stroke-linecap="round"/>
+  <line x1="80" y1="128" x2="72" y2="150" stroke="#b71c1c" stroke-width="5" stroke-linecap="round"/>
+  <line x1="96" y1="128" x2="104" y2="150" stroke="#b71c1c" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="82" cy="77" r="3" fill="#5d4037"/>
+  <circle cx="94" cy="77" r="3" fill="#5d4037"/>
+  <path d="M82 87 Q88 82 94 87" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 聞かれている子（右）表情が複雑 -->
+  <circle cx="178" cy="80" r="17" fill="#ffcc80"/>
+  <rect x="166" y="98" width="24" height="30" rx="8" fill="#42a5f5"/>
+  <line x1="166" y1="108" x2="150" y2="95" stroke="#42a5f5" stroke-width="5" stroke-linecap="round"/>
+  <line x1="190" y1="106" x2="204" y2="118" stroke="#42a5f5" stroke-width="5" stroke-linecap="round"/>
+  <line x1="170" y1="128" x2="162" y2="150" stroke="#1565c0" stroke-width="5" stroke-linecap="round"/>
+  <line x1="186" y1="128" x2="194" y2="150" stroke="#1565c0" stroke-width="5" stroke-linecap="round"/>
+  <!-- 複雑な顔 -->
+  <circle cx="172" cy="77" r="3" fill="#5d4037"/>
+  <circle cx="184" cy="77" r="3" fill="#5d4037"/>
+  <path d="M172 88 Q178 85 184 88" stroke="#5d4037" stroke-width="2" fill="none"/>
+</svg>`;
+
+const svgWantStop = `
+<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="180">
+  <rect width="300" height="180" fill="#fff3e0"/>
+  <ellipse cx="150" cy="170" rx="130" ry="10" fill="#ffcc80"/>
+  <ellipse cx="150" cy="162" rx="120" ry="8" fill="#a5d6a7"/>
+  <!-- ゲーム道具（トランプ的な） -->
+  <rect x="116" y="115" width="68" height="36" rx="6" fill="#ffe082" stroke="#f9a825" stroke-width="2"/>
+  <text x="150" y="138" font-size="12" text-anchor="middle" fill="#f57f17">ゲーム中</text>
+  <!-- 楽しんでいる子（左・もっとやりたい） -->
+  <circle cx="78" cy="78" r="18" fill="#ffcc80"/>
+  <rect x="66" y="98" width="24" height="32" rx="8" fill="#42a5f5"/>
+  <line x1="66" y1="108" x2="50" y2="120" stroke="#42a5f5" stroke-width="6" stroke-linecap="round"/>
+  <line x1="90" y1="106" x2="108" y2="116" stroke="#42a5f5" stroke-width="6" stroke-linecap="round"/>
+  <line x1="70" y1="130" x2="62" y2="155" stroke="#1565c0" stroke-width="5" stroke-linecap="round"/>
+  <line x1="86" y1="130" x2="94" y2="155" stroke="#1565c0" stroke-width="5" stroke-linecap="round"/>
+  <!-- 楽しそうな顔 -->
+  <circle cx="72" cy="75" r="3" fill="#5d4037"/>
+  <circle cx="84" cy="75" r="3" fill="#5d4037"/>
+  <path d="M72 85 Q78 90 84 85" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- やめたい子（右・疲れ顔） -->
+  <circle cx="222" cy="78" r="18" fill="#ffcc80"/>
+  <rect x="210" y="98" width="24" height="32" rx="8" fill="#ef9a9a"/>
+  <line x1="210" y1="108" x2="192" y2="116" stroke="#ef9a9a" stroke-width="6" stroke-linecap="round"/>
+  <line x1="234" y1="106" x2="250" y2="120" stroke="#ef9a9a" stroke-width="6" stroke-linecap="round"/>
+  <line x1="214" y1="130" x2="206" y2="155" stroke="#c62828" stroke-width="5" stroke-linecap="round"/>
+  <line x1="230" y1="130" x2="238" y2="155" stroke="#c62828" stroke-width="5" stroke-linecap="round"/>
+  <!-- 疲れ顔（目が半開き） -->
+  <path d="M216 72 Q222 76 228 72" stroke="#5d4037" stroke-width="2.5" fill="none"/>
+  <path d="M216 74 Q222 78 228 74" stroke="#ffcc80" stroke-width="2" fill="none"/>
+  <path d="M216 85 Q222 82 228 85" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- zzz -->
+  <text x="242" y="62" font-size="13" fill="#9e9e9e" opacity="0.8">zz</text>
+</svg>`;
+
+const svgPraised = `
+<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="180">
+  <rect width="300" height="180" fill="#e8f5e9"/>
+  <ellipse cx="150" cy="172" rx="130" ry="10" fill="#a5d6a7"/>
+  <!-- 先生（左） -->
+  <circle cx="50" cy="80" r="16" fill="#ffcc80"/>
+  <rect x="38" y="96" width="22" height="30" rx="7" fill="#7e57c2"/>
+  <line x1="60" y1="102" x2="76" y2="94" stroke="#7e57c2" stroke-width="5" stroke-linecap="round"/>
+  <line x1="38" y1="104" x2="24" y2="114" stroke="#7e57c2" stroke-width="5" stroke-linecap="round"/>
+  <line x1="42" y1="126" x2="34" y2="148" stroke="#4527a0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="56" y1="126" x2="64" y2="148" stroke="#4527a0" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="44" cy="77" r="2.5" fill="#5d4037"/>
+  <circle cx="56" cy="77" r="2.5" fill="#5d4037"/>
+  <path d="M44 87 Q50 91 56 87" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 先生からほめ言葉の吹き出し -->
+  <ellipse cx="110" cy="50" rx="44" ry="20" fill="#fffde7" stroke="#fdd835" stroke-width="2"/>
+  <line x1="76" y1="60" x2="68" y2="75" stroke="#fdd835" stroke-width="2"/>
+  <text x="110" y="56" font-size="11" text-anchor="middle" fill="#f57f17">すばらしい！</text>
+  <!-- ほめられた子（中央） -->
+  <circle cx="155" cy="82" r="18" fill="#ffcc80"/>
+  <rect x="143" y="102" width="24" height="32" rx="8" fill="#ff7043"/>
+  <line x1="143" y1="112" x2="127" y2="124" stroke="#ff7043" stroke-width="6" stroke-linecap="round"/>
+  <line x1="167" y1="110" x2="181" y2="122" stroke="#ff7043" stroke-width="6" stroke-linecap="round"/>
+  <line x1="147" y1="134" x2="139" y2="158" stroke="#bf360c" stroke-width="5" stroke-linecap="round"/>
+  <line x1="163" y1="134" x2="171" y2="158" stroke="#bf360c" stroke-width="5" stroke-linecap="round"/>
+  <!-- 照れ顔 -->
+  <circle cx="149" cy="79" r="3" fill="#5d4037"/>
+  <circle cx="161" cy="79" r="3" fill="#5d4037"/>
+  <path d="M149 90 Q155 95 161 90" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- 頬赤み -->
+  <ellipse cx="146" cy="88" rx="6" ry="4" fill="#ff8a80" opacity="0.5"/>
+  <ellipse cx="164" cy="88" rx="6" ry="4" fill="#ff8a80" opacity="0.5"/>
+  <!-- からかっている子（右） -->
+  <circle cx="248" cy="82" r="17" fill="#ffcc80"/>
+  <rect x="236" y="100" width="24" height="30" rx="8" fill="#ffa726"/>
+  <line x1="236" y1="110" x2="220" y2="120" stroke="#ffa726" stroke-width="5" stroke-linecap="round"/>
+  <line x1="260" y1="108" x2="274" y2="120" stroke="#ffa726" stroke-width="5" stroke-linecap="round"/>
+  <line x1="240" y1="130" x2="232" y2="152" stroke="#e65100" stroke-width="5" stroke-linecap="round"/>
+  <line x1="256" y1="130" x2="264" y2="152" stroke="#e65100" stroke-width="5" stroke-linecap="round"/>
+  <!-- にやにや顔 -->
+  <circle cx="242" cy="79" r="3" fill="#5d4037"/>
+  <circle cx="254" cy="79" r="3" fill="#5d4037"/>
+  <path d="M240 89 Q248 95 254 89" stroke="#5d4037" stroke-width="2" fill="none"/>
+  <!-- からかいの吹き出し -->
+  <ellipse cx="248" cy="58" rx="34" ry="16" fill="#ffebee" stroke="#ef9a9a" stroke-width="1.5"/>
+  <line x1="236" y1="67" x2="246" y2="74" stroke="#ef9a9a" stroke-width="1.5"/>
+  <text x="248" y="63" font-size="10" text-anchor="middle" fill="#e53935">えこひいき〜</text>
+</svg>`;
+
 // -------- 場面データ --------
 const scenes = [
   {
@@ -1419,6 +1711,90 @@ const scenes = [
       "みんなで仲よく帰るために、どうしたらいいかな？"
     ],
     svg: svgSlowWalk
+  },
+  {
+    category: "友だちとの場面",
+    title: "ひみつを うちあけられた",
+    desc: "友だちから「ないしょにしてね」と秘密を打ち明けられました。でも、その秘密はとても大事なことかもしれません。",
+    firstWord: "ねえ、ないしょにしてね。じつは…",
+    questions: [
+      "あなたはどんな気持ち？",
+      "友だちに、どんな言葉を返す？",
+      "秘密を守るべきか、大人に伝えるべきか、どう考える？"
+    ],
+    svg: svgSecret
+  },
+  {
+    category: "学校生活の場面",
+    title: "はっぴょうで わらわれた",
+    desc: "国語の時間に作文を発表したら、クラスの一部の子がくすくす笑っていました。とても傷つきました。",
+    firstWord: "ふふふ…（くすくす笑い）",
+    questions: [
+      "発表した子は、どんな気持ちかな？",
+      "あなたが発表していたら、どうする？",
+      "笑っていた子に、どんな言葉を伝えたい？"
+    ],
+    svg: svgLaughed
+  },
+  {
+    category: "友だちとの場面",
+    title: "鬼を おしつけられた",
+    desc: "鬼ごっこをはじめるとき、みんなが勝手に「○○くんが鬼ね！」と決めてしまいました。",
+    firstWord: "じゃあ、○○くんが鬼ね！",
+    questions: [
+      "このとき、あなたはどんな気持ち？",
+      "どんな言葉を返せばいいかな？",
+      "みんなが納得できる決め方は、どんな方法があるかな？"
+    ],
+    svg: svgForceIt
+  },
+  {
+    category: "学校生活の場面",
+    title: "宿題を みせてと言われた",
+    desc: "朝、教室に来たら友だちが「宿題見せて」と言ってきました。あなたはどうしたらいいか迷っています。",
+    firstWord: "宿題、見せてくれない？",
+    questions: [
+      "このとき、あなたはどんな気持ち？",
+      "どんな言葉を返す？",
+      "断るとき、相手が傷つかないように言うには？"
+    ],
+    svg: svgCopyHW
+  },
+  {
+    category: "友だちとの場面",
+    title: "友だちの わるぐちを 聞いた",
+    desc: "休み時間、友だちのAさんの悪口を別の子から言われました。あなたはAさんのことが好きです。",
+    firstWord: "○○さんって、なんかいやじゃない？",
+    questions: [
+      "あなたはどんな気持ち？",
+      "どんな言葉を返せばいいかな？",
+      "友だちを守るために、どうしたらいいかな？"
+    ],
+    svg: svgGossip
+  },
+  {
+    category: "友だちとの場面",
+    title: "やめたいのに つづけさせられる",
+    desc: "ゲームをしていて、あなたはもう疲れてやめたい気持ちです。でも、友だちは「もっとやろう！」と言ってきます。",
+    firstWord: "えー、やめないでよ！もっとやろうよ！",
+    questions: [
+      "このとき、あなたはどんな気持ち？",
+      "友だちに、どんな言葉で伝える？",
+      "お互いが納得できるように、どうしたらいいかな？"
+    ],
+    svg: svgWantStop
+  },
+  {
+    category: "学校生活の場面",
+    title: "ほめられて からかわれた",
+    desc: "先生に「すばらしい！」とほめてもらいました。うれしかったけど、そのあとクラスメートにからかわれました。",
+    firstWord: "えこひいき〜！先生のお気に入りじゃん",
+    questions: [
+      "このとき、あなたはどんな気持ち？",
+      "どんな言葉を返せばいいかな？",
+      "からかわれたとき、どうやって気持ちを落ち着かせる？"
+    ],
+    svg: svgPraised
   }
 ];
 
